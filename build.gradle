@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+
+}
+
+group = 'com.ss'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	testImplementation 'io.cucumber:cucumber-java:6.10.4'
+	testImplementation 'org.testng:testng:7.10.0'
+
+	implementation 'org.seleniumhq.selenium:selenium-java:4.24.0'
+
+}
+
+tasks.named('test') {
+	// Use TestNG for unit tests.
+	useTestNG() {
+		useDefaultListeners = true
+		outputDirectory = file("$projectDir/TestNG_Reports")
+	}
+	reports.html.setDestination(file("$projectDir/GradleReports"))
+}
